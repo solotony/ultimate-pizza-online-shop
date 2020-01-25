@@ -10,12 +10,16 @@ class Item extends Model
         return $this->belongsTo(Order::class, 'order_id', 'id');
     }
 
-    public function product() {
-        return $this->belongsTo(Product::class, 'product_id', 'id');
+    public function unit() {
+        return $this->belongsTo(Unit::class, 'unit_id', 'id');
     }
 
     public function related() {
         return $this->belongsTo(Item::class, 'related_id', 'id');
+    }
+
+    public function toppings() {
+        return $this->hasMany(Item::class, 'related_id', 'id');
     }
 
 }

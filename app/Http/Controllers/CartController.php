@@ -52,7 +52,7 @@ class CartController extends Controller
      */
     public function decrement(Request $request, int $item_id) {
         $order = $this->getOrder($request);
-        $order->decrement($item_id);
+        $order->dec($item_id);
         return  $this->show($request);
     }
 
@@ -63,7 +63,7 @@ class CartController extends Controller
      */
     public function increment(Request $request, int $item_id) {
         $order = $this->getOrder($request);
-        $order->increment($item_id);
+        $order->inc($item_id);
         return  $this->show($request);
     }
 

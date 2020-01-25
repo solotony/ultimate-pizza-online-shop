@@ -28,6 +28,10 @@ class Order extends Model
         return $this->hasMany(Item::class, 'order_id', 'id');
     }
 
+    public function items_main() {
+        return $this->items()->whereNull('related_id');
+    }
+
     public function operations() {
         return $this->hasMany(Operation::class, 'order_id', 'id');
     }
@@ -38,57 +42,48 @@ class Order extends Model
         /**
          * @var \App\Item $item
          */
-        $item_ok = null;
-        foreach ($this->items as $item) {
-            if ($item->unit_id === $unit_id) {
-                $item_ok = $item;
-                $item_ok->qty = $count;
-                $item_ok->save();
-                break;
-            }
+
+        $unit = Unit::query()
+            ->where('id', $unit_id)
+            ->where('instock', true)
+            ->first();
+
+        if (!$unit) {
+            // TODO ERROR PROCESSING
+            return false;
         }
 
-        if (!$item_ok) {
-            $unit = Unit::query()
-                ->where('id', $unit_id)
+        $item = new Item;
+        $item->qty = $count;
+        $item->order_id = $this->id;
+        $item->unit_id = $unit_id;
+        $item->related_id = null;
+        $item->price = $unit->price;
+        $item->amount = $unit->price;
+        $item->save();
+
+        foreach ($toppings as $topping_id) {
+            $topping_unit = Unit::query()
+                ->where('id', $topping_id)
                 ->where('instock', true)
                 ->first();
-            if (!$unit) {
+            if (!$topping_unit) {
                 // TODO ERROR PROCESSING
-                return;
+                return  false;
             }
-
-            $item_ok = new Item;
-            $item_ok->qty = $count;
-            $item_ok->order_id = $this->id;
-            $item_ok->unit_id = $unit_id;
-            $item_ok->related_id = null;
-            $item_ok->price = $unit->price;
-            $item_ok->amount = $unit->price;
-            $item_ok->save();
-
-            foreach ($toppings as $topping_id) {
-                $unit = Unit::query()
-                    ->where('id', $topping_id)
-                    ->where('instock', true)
-                    ->first();
-                if (!$unit) {
-                    // TODO ERROR PROCESSING
-                    return;
-                }
-                $topping = new Item;
-                $topping->qty = 1;
-                $topping->order_id = $this->id;
-                $topping->unit_id = $unit_id;
-                $topping->related_id = $item_ok;
-                $topping->price = $unit->price;
-                $topping->amount = $unit->price;
-                $topping->save();
-            }
+            $topping_item = new Item;
+            $topping_item->qty = 1;
+            $topping_item->order_id = $this->id;
+            $topping_item->unit_id = $topping_id;
+            $topping_item->related_id = $item->id;
+            $topping_item->price = $topping_unit->price;
+            $topping_item->amount = $topping_unit->price;
+            $topping_item->save();
         }
+        return true;
     }
 
-    public function increment(int $item_id) {
+    public function inc(int $item_id) {
         /**
          * @var \App\Item $item
          */
@@ -96,11 +91,13 @@ class Order extends Model
             if ($item->id === $item_id) {
                 $item->qty += 1;
                 $item->save();
+                return true;
             }
         }
+        return false;
     }
 
-    public function decrement(int $item_id) {
+    public function dec(int $item_id) {
         /**
          * @var \App\Item $item
          */
@@ -109,14 +106,15 @@ class Order extends Model
                 $item->qty -= 1;
                 if ($item->qty > 0) {
                     $item->save();
-                    return;
+                    return true;
                 }
                 else {
                     $item->delete();
-                    return;
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     public function set(int $item_id, int $count) {
@@ -125,13 +123,15 @@ class Order extends Model
                 if ($count > 0) {
                     $item->qty = $count;
                     $item->save();
+                    return true;
                 }
                 else {
                     $item->delete();
+                    return true;
                 }
             }
         }
+        return false;
     }
-
 
 }
