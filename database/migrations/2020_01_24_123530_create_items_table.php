@@ -18,7 +18,9 @@ class CreateItemsTable extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('related_id')->nullable();
-            $table->unsignedBigInteger('product_id')->nullable();
+
+            $table->unsignedBigInteger('unit_id')->nullable();
+            $table->string('name', 200)->default(0);
             $table->integer('qty')->default(0);
             $table->integer('price')->default(0);
             $table->integer('amount')->default(0);
@@ -35,13 +37,13 @@ class CreateItemsTable extends Migration
             $table->foreign('related_id', 'item_item_fk')
                 ->references('id')
                 ->on('items')
-                ->onDelete('set null');
+                ->onDelete('cascade');
 
-            $table->index('product_id', 'product_id');
+            $table->index('unit_id', 'unit_id');
 
-            $table->foreign('product_id', 'item_product_fk')
+            $table->foreign('unit_id', 'item_unit_fk')
                 ->references('id')
-                ->on('products')
+                ->on('units')
                 ->onDelete('set null');
         });
     }
