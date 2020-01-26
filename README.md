@@ -6,9 +6,16 @@ This is a test project Ultimate Pizza Online Shop
 
 I spend for this project nearly 20 hours
 
-It is desined as it was real pizza shop
+It is desined as it was real pizza shop. 
+
+### Database info
+
 ![Database structure](http://bnx.ru/help/Screenshot_2.jpg "Database structure")
 
+* Top level are categories (pizza, pies, drinks)
+* Second level are subcategories (kind of pizzas ...) every subcategory have relation to avalable toppings for this subcategory
+* Third level ape products (pizza a, pizza b) every product has ingradients (many2many)
+* Fourth level are offers (units) - (pizza a 700g, izza a 500g, izza a 300g, ) Every product must have at least one offer.
 
 ### Some tips
 

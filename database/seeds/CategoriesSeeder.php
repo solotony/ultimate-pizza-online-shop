@@ -117,6 +117,8 @@ class CategoriesSeeder extends Seeder
             ['id' =>40, 'product_id' => 20, 'volume'=>100, 'price'=>500],
             ['id' =>41, 'product_id' => 21, 'volume'=>50 , 'price'=>500],
             ['id' =>42, 'product_id' => 21, 'volume'=>100, 'price'=>800],
+        ]);
+        \Illuminate\Support\Facades\DB::table('units')->insert([
             ['id' =>43, 'product_id' => 22, 'weight'=>900, 'price'=>600],
             ['id' =>44, 'product_id' => 22, 'weight'=>700, 'price'=>500],
             ['id' =>45, 'product_id' => 22, 'weight'=>500, 'price'=>400],

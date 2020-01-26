@@ -16,9 +16,9 @@
                 <td>
                     <select v-model="unit" id="unit">
                         <option  v-for="t in product.units_instock" :value="t.id">
-                            <template v-if="t.width">width: {{ t.width }} &nbsp; &nbsp;</template>
-                            <template v-if="t.size">size: {{ t.size }} &nbsp; &nbsp;</template>
-                            <template v-if="t.volume">volume: {{ t.volume }} &nbsp; &nbsp;</template>
+                            <template v-if="t.weight">weight: {{ t.weight }} g &nbsp; &nbsp;</template>
+                            <template v-if="t.size">size: {{ t.size }} cm &nbsp; &nbsp;</template>
+                            <template v-if="t.volume">volume: {{ t.volume }} ml &nbsp; &nbsp;</template>
                         </option>
                     </select>
                 </td>
@@ -77,6 +77,7 @@
                         console.log('self = ', self);
                         self.$store.commit('resetCart')
                         self.$store.commit('setCart', result.cart)
+                        alert("OK!");
                     }
                     else {
                         console.log('add failed');
