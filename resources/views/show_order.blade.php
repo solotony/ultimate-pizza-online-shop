@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    @if($order)
+    @if($order && $order->status > 0)
 
         <h2>Status: {{$order->status_text() }}</h2>
 
@@ -16,9 +16,11 @@
             <li>
                 Delivery time: from {{(new \Carbon\Carbon($order->delivery_time))->format('d.m H:i')}} to {{(new \Carbon\Carbon($order->delivery_time))->addHour()->format('d.m H:i')}}
             </li>
+            @if($order->shop)
             <li>
                 Shop: {{ $order->shop->name }}  {{ $order->shop->address }}
             </li>
+            @endif
             <li>
                 Delivery address: hidden
             </li>
@@ -27,7 +29,7 @@
             </li>
         </ul>
 
-        <table class="cart-table" v-if="!is_cart_empty">
+        <table class="cart-table">
             @foreach ($order->items as $item)
                 <tr>
                     @if(!$item->related_id)

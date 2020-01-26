@@ -193,7 +193,7 @@ class Order extends Model
     }
 
     public function method_text() {
-        switch ($this->status) {
+        switch ($this->method) {
             case self::METHOD_DELIVERY: return 'Delivery';
             case self::METHOD_PICKUP: return 'Pickup';
         }

@@ -27,11 +27,11 @@
                 <nav>
                     <ul>
                         <li><a href="/">Home</a></li>
-                        <li><a href="/1/">Pizza</a></li>
-                        <li><a href="/3/">Pie</a></li>
-                        <li><a href="/2/">Drinks</a></li>
+                        <li><a href="/1">Pizza</a></li>
+                        <li><a href="/3">Pie</a></li>
+                        <li><a href="/2">Drinks</a></li>
                         @if(Auth::check())
-                            <li><a href="/home/">Cabinet</a></li>
+                            <li><a href="/home">Cabinet</a></li>
                             <li><a href="#" onclick="forms.logout.submit()">Logout</a></li>
                             <form id="logout" name="logout" method="post" action="{{route('logout')}}">@csrf</form>
                         @endif

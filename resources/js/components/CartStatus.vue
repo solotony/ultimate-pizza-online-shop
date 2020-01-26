@@ -5,11 +5,8 @@
 </template>
 
 <script>
-    import { functions } from '../functions.js';
-
     export default {
         name: "CartStatus",
-        mixins: [functions,],
         data: function () {
             return {
             }
@@ -17,7 +14,7 @@
         methods: {
             cart_status: function() {
                 if (this.is_cart_empty()) {
-                    return 'Your cart is not loaded yet.';
+                    return 'Your cart is empty';
                 }
                 let s = 0;
                 s = s*this.$store.state.n;
@@ -38,6 +35,9 @@
                 if (!this.$store.state.cart.items) return true;
                 return false;
             },
+            format_price: function(value) {
+                return format_price(value);
+            },
         },
         computed: {
             cart:  function () {
@@ -51,7 +51,7 @@
 
             let  self = this;
 
-            this.$http.get('/cart/show/').then(response=> {
+            this.$http.get('/cart/show').then(response=> {
                 console.log('OK');
                 let result =  response.body;
                 console.log(result);
@@ -68,7 +68,7 @@
                 console.error(error);
             });
 
-            this.$http.get('/cart/currency/').then(response=> {
+            this.$http.get('/cart/currency').then(response=> {
                 console.log('OK');
                 let result =  response.body;
                 console.log(result);

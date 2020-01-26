@@ -48,11 +48,8 @@
 </template>
 
 <script>
-    import { functions } from '../functions.js';
-
     export default {
         name: "CartAdd",
-        mixins: [functions,],
         props: [
             'product_id'
         ],
@@ -72,7 +69,7 @@
                 formdata.append('_token', this.csrf);
                 formdata.append('data', data);
                 let  self = this;
-                this.$http.post('/cart/add/'+this.unit+'/', formdata).then(response=> {
+                this.$http.post('/cart/add/'+this.unit, formdata).then(response=> {
                     let result =  response.body;
                     console.log(result);
                     if (result.status===1) {
@@ -88,7 +85,10 @@
                     console.log('Error');
                     console.error(error);
                 });
-            }
+            },
+            format_price: function(value) {
+                return format_price(value);
+            },
         },
         computed: {
             product_is_loaded: function (){
@@ -122,7 +122,7 @@
             }
         },
         created:function () {
-            this.$http.get('/cart/product/'+this.product_id+'/').then(response=> {
+            this.$http.get('/cart/product/'+this.product_id).then(response=> {
                 console.log('OK');
                 let result =  response.body;
                 console.log(result);

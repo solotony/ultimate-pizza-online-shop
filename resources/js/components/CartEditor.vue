@@ -33,11 +33,8 @@
 </template>
 
 <script>
-    import { functions } from '../functions.js';
-
     export default {
         name: "CartEditor",
-        mixins: [functions,],
         data: function () {
             return {
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -85,7 +82,7 @@
                 let formdata = new FormData();
                 formdata.append('_token', this.csrf);
                 let  self = this;
-                this.$http.post('/cart/inc/'+item_id+'/', formdata).then(response=> {
+                this.$http.post('/cart/inc/'+item_id, formdata).then(response=> {
                     console.log('OK');
                     let result =  response.body;
                     console.log(result);
@@ -106,7 +103,7 @@
                 let formdata = new FormData();
                 formdata.append('_token', this.csrf);
                 let  self = this;
-                this.$http.post('/cart/dec/'+item_id+'/', formdata).then(response=> {
+                this.$http.post('/cart/dec/'+item_id, formdata).then(response=> {
                     console.log('OK');
                     let result =  response.body;
                     console.log(result);
@@ -128,7 +125,7 @@
                 formdata.append('_token', this.csrf);
                 formdata.append('count', 0);
                 let  self = this;
-                this.$http.post('/cart/set/'+item_id+'/', formdata).then(response=> {
+                this.$http.post('/cart/set/'+item_id, formdata).then(response=> {
                     console.log('OK');
                     let result =  response.body;
                     console.log(result);
@@ -144,6 +141,9 @@
                     console.log('Error');
                     console.error(error);
                 });
+            },
+            format_price: function(value) {
+                return format_price(value);
             },
         },
     }

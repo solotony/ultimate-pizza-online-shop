@@ -41,7 +41,7 @@
                                 size {{ $u->size }} cm &nbsp; &nbsp;
                                 @endif
                             @if($u->volume)
-                                volume {{ $u->size }} ml &nbsp; &nbsp;
+                                volume {{ $u->volume }} ml &nbsp; &nbsp;
                                 @endif
                             <strong>{{ format_price($u->price, $sel_currency) }} </strong>
                         </li>
@@ -58,7 +58,7 @@
                             size {{ $u->size }} cm &nbsp; &nbsp;
                         @endif
                         @if($u->volume)
-                            volume {{ $u->size }} ml &nbsp; &nbsp;
+                            volume {{ $u->volume }} ml &nbsp; &nbsp;
                         @endif
                         <strong>{{ format_price($u->price, $sel_currency) }} </strong>
                     </p>
