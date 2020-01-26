@@ -15,7 +15,7 @@ It is desined as it was real pizza shop.
 * Top level are categories (pizza, pies, drinks)
 * Second level are subcategories (kind of pizzas ...) every subcategory have relation to avalable toppings for this subcategory
 * Third level ape products (pizza a, pizza b) every product has ingradients (many2many)
-* Fourth level are offers (units) - (pizza a 700g, izza a 500g, izza a 300g, ) Every product must have at least one offer.
+* Fourth level are offers (units) - (pizza a 700g, pizza a 500g, pizza a 300g, ) Every product must have at least one offer.
 
 ### Some tips
 
@@ -25,7 +25,7 @@ It is desined as it was real pizza shop.
 - no emails when order created
 - password is always **qwerty**
 - "jeremykenedy/laravel-roles" was used to roles, but there is no admi panel, so no demo 
-- in front **vue js** is used for cart subsystem^
+- in front **vue js** is used for cart subsystem:
 - 1. cart add
   2. cart status
   3. cart show/edit
