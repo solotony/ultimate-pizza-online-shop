@@ -43,7 +43,7 @@
                             @if($u->volume)
                                 volume {{ $u->size }} ml &nbsp; &nbsp;
                                 @endif
-                            <strong>{{ $u->price }}₽ </strong>
+                            <strong>{{ format_price($u->price, $sel_currency) }} </strong>
                         </li>
                     @endforeach
                 </ul>
@@ -60,13 +60,28 @@
                         @if($u->volume)
                             volume {{ $u->size }} ml &nbsp; &nbsp;
                         @endif
-                        <strong>{{ $u->price }}₽ </strong>
+                        <strong>{{ format_price($u->price, $sel_currency) }} </strong>
                     </p>
                 @endforeach
             @endif
+
+            @if($product->subcategory->toppings->count())
+                <h2>Possible toppings</h2>
+                <ul>
+                    @foreach($product->subcategory->toppings as $t)
+                        <li>
+                            {{ $t->name }} - {{ format_price($t->mainunit->price, $sel_currency) }}
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
+
+                <h2>Make order</h2>
+            <cart-add :product_id.number="{{$product->id}}"></cart-add>
         @else
             <p>not in stock</p>
         @endif
+
 
     </div>
 @endsection

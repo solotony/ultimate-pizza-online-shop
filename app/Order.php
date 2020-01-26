@@ -12,6 +12,9 @@ class Order extends Model
     const STATUS_READY = 3;
     const STATUS_DELIVERED = 4;
 
+    const METHOD_DELIVERY = 1;
+    const METHOD_PICKUP = 2;
+
     public function customer() {
         return $this->belongsTo(User::class, 'customer_id', 'id');
     }
@@ -59,7 +62,22 @@ class Order extends Model
         $item->unit_id = $unit_id;
         $item->related_id = null;
         $item->price = $unit->price;
-        $item->amount = $unit->price;
+        $item->amount = $unit->price * $count;
+        $item->name = $unit->product->name;
+        if ($unit->weight | $unit->size | $unit->volume) {
+            $item->name .= ' (';
+            if ($unit->weight) {
+                $item->name .= ' weight: ' . $unit->weight . ' g';
+            }
+            if ($unit->size ) {
+                $item->name .= ' size: ' . $unit->size . ' cm';
+            }
+            if ($unit->volume) {
+                $item->name .= ' volume: ' . $unit->volume . ' ml';
+            }
+            $item->name .= ')';
+        }
+
         $item->save();
 
         foreach ($toppings as $topping_id) {
@@ -72,12 +90,26 @@ class Order extends Model
                 return  false;
             }
             $topping_item = new Item;
-            $topping_item->qty = 1;
+            $topping_item->qty = $count;
             $topping_item->order_id = $this->id;
             $topping_item->unit_id = $topping_id;
             $topping_item->related_id = $item->id;
             $topping_item->price = $topping_unit->price;
-            $topping_item->amount = $topping_unit->price;
+            $topping_item->amount = $topping_unit->price * $count;
+            $topping_item->name = $topping_unit->product->name;
+            if ($topping_unit->weight | $topping_unit->size | $topping_unit->volume) {
+                $topping_item->name .= ' (';
+                if ($topping_unit->weight) {
+                    $topping_item->name .= ' weight: ' . $topping_unit->weight . ' g';
+                }
+                if ($topping_unit->size ) {
+                    $topping_item->name .= ' size: ' . $topping_unit->size . ' cm';
+                }
+                if ($topping_unit->volume) {
+                    $topping_item->name .= ' volume: ' . $topping_unit->volume . ' ml';
+                }
+                $topping_item->name .= ')';
+            }
             $topping_item->save();
         }
         return true;
@@ -88,13 +120,15 @@ class Order extends Model
          * @var \App\Item $item
          */
         foreach ($this->items as $item) {
-            if ($item->id === $item_id) {
+            $finded = false;
+            if (($item->id === $item_id)||($item->related_id === $item_id)) {
                 $item->qty += 1;
+                $item->amount = $item->qty * $item->price;
                 $item->save();
-                return true;
+                $finded = true;
             }
         }
-        return false;
+        return $finded;
     }
 
     public function dec(int $item_id) {
@@ -102,19 +136,23 @@ class Order extends Model
          * @var \App\Item $item
          */
         foreach ($this->items as $item) {
-            if ($item->id === $item_id) {
+            $finded = false;
+            if (($item->id === $item_id)||($item->related_id === $item_id)) {
                 $item->qty -= 1;
+                $item->amount = $item->qty * $item->price;
+                $finded = true;
                 if ($item->qty > 0) {
                     $item->save();
-                    return true;
                 }
                 else {
-                    $item->delete();
-                    return true;
+                    if ($item->id === $item_id) {
+                        $item->delete();
+                        return true;
+                    }
                 }
             }
         }
-        return false;
+        return $finded;
     }
 
     public function set(int $item_id, int $count) {
@@ -134,4 +172,30 @@ class Order extends Model
         return false;
     }
 
+    public function calculate_total() {
+        $t = 0;
+
+        foreach ($this->items as $item) {
+            $t += $item->amount;
+        }
+
+        return $t;
+    }
+
+    public function status_text() {
+        switch ($this->status) {
+            case self::STATUS_DRAFT: return 'Draft';
+            case self::STATUS_CREATED: return 'Created';
+            case self::STATUS_CONFIRMED: return 'Confirmed';
+            case self::STATUS_READY: return 'Ready';
+            case self::STATUS_DELIVERED: return 'Delivered';
+        }
+    }
+
+    public function method_text() {
+        switch ($this->status) {
+            case self::METHOD_DELIVERY: return 'Delivery';
+            case self::METHOD_PICKUP: return 'Pickup';
+        }
+    }
 }

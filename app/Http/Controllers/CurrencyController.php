@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
+use App\Currency;
 use Illuminate\Http\Request;
 
-class CategoryController extends BaseController
+class CurrencyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class CategoryController extends BaseController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Currency  $currency
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Currency $currency)
     {
         //
     }
@@ -52,10 +52,10 @@ class CategoryController extends BaseController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Currency  $currency
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Currency $currency)
     {
         //
     }
@@ -64,10 +64,10 @@ class CategoryController extends BaseController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Category  $category
+     * @param  \App\Currency  $currency
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Currency $currency)
     {
         //
     }
@@ -75,10 +75,10 @@ class CategoryController extends BaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Currency  $currency
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Currency $currency)
     {
         //
     }

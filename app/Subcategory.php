@@ -19,6 +19,6 @@ class Subcategory extends Model
     }
 
     public function toppings() {
-        return $this->belongsToMany(Subcategory::class, 'subcategory_topping', 'topping_id', 'subcategory_id', 'id', 'id');
+        return $this->belongsToMany(Topping::class, 'subcategory_topping', 'subcategory_id', 'topping_id',  'id', 'id');
     }
 }

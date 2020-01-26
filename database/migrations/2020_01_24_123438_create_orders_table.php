@@ -26,6 +26,7 @@ class CreateOrdersTable extends Migration
             $table->string('address', 500)->nullable();
             $table->string('delivery_comment', 500)->nullable();
             $table->dateTime('time_of_delivery')->nullable();
+            $table->unsignedBigInteger('currency_id')->nullable();
 
             $table->index('customer_id', 'customer_id');
 

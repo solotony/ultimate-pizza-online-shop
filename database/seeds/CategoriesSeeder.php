@@ -182,5 +182,43 @@ class CategoriesSeeder extends Seeder
             ['product_id' => 14, 'ingradient_id'=> 8, ],
         ]);
 
+
+        \Illuminate\Support\Facades\DB::table('subcategory_topping')->insert([
+            ['subcategory_id' => 1, 'topping_id'=> 1,  ],
+            ['subcategory_id' => 1, 'topping_id'=> 2,  ],
+            ['subcategory_id' => 1, 'topping_id'=> 3,  ],
+            ['subcategory_id' => 1, 'topping_id'=> 4,  ],
+            ['subcategory_id' => 1, 'topping_id'=> 5,  ],
+            ['subcategory_id' => 2, 'topping_id'=> 6,  ],
+            ['subcategory_id' => 2, 'topping_id'=> 7,  ],
+            ['subcategory_id' => 2, 'topping_id'=> 1,  ],
+            ['subcategory_id' => 2, 'topping_id'=> 2,  ],
+            ['subcategory_id' => 2, 'topping_id'=> 3,  ],
+            ['subcategory_id' => 3, 'topping_id'=> 4,  ],
+            ['subcategory_id' => 3, 'topping_id'=> 5,  ],
+            ['subcategory_id' => 3, 'topping_id'=> 6,  ],
+            ['subcategory_id' => 3, 'topping_id'=> 7,  ],
+            ['subcategory_id' => 3, 'topping_id'=> 1,  ],
+            ['subcategory_id' => 7, 'topping_id'=> 2,  ],
+            ['subcategory_id' => 7, 'topping_id'=> 3,  ],
+            ['subcategory_id' => 7, 'topping_id'=> 4,  ],
+            ['subcategory_id' => 7, 'topping_id'=> 5,  ],
+            ['subcategory_id' => 7, 'topping_id'=> 6,  ],
+            ['subcategory_id' => 8, 'topping_id'=> 7,  ],
+            ['subcategory_id' => 8, 'topping_id'=> 1,  ],
+            ['subcategory_id' => 8, 'topping_id'=> 2, ],
+            ['subcategory_id' => 8, 'topping_id'=> 3, ],
+            ['subcategory_id' => 9, 'topping_id'=> 4, ],
+            ['subcategory_id' => 9, 'topping_id'=> 5, ],
+            ['subcategory_id' => 9, 'topping_id'=> 6, ],
+            ['subcategory_id' => 9, 'topping_id'=> 7, ],
+        ]);
+
+        \Illuminate\Support\Facades\DB::table('currencies')->insert([
+            ['id'=>1, 'name' => 'RUR', 'sign'=> '₽',  'sign_before'=>false, 'rate'=>1],
+            ['id'=>2, 'name' => 'USD', 'sign'=> '$',  'sign_before'=>true, 'rate'=>62.07],
+            ['id'=>3, 'name' => 'EUR', 'sign'=> '€',  'sign_before'=>true, 'rate'=>68.44],
+        ]);
+
     }
 }
