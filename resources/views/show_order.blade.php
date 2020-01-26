@@ -14,7 +14,7 @@
                 Delivery method: {{$order->method_text()}}
             </li>
             <li>
-                Delivery time: from {{(new \Carbon\Carbon($order->delivery_time))->format('d.m H:i')}} to {{(new \Carbon\Carbon($order->delivery_time))->addHour()->format('d.m H:i')}}
+                Delivery time: from {{(new \Carbon\Carbon($order->time_of_delivery))->format('d.m H:i')}} to {{(new \Carbon\Carbon($order->time_of_delivery))->addHour()->format('d.m H:i')}}
             </li>
             @if($order->shop)
             <li>

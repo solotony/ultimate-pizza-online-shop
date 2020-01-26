@@ -19,9 +19,9 @@ It is desined as it was real pizza shop.
 
 ### Some tips
 
-- absolutely no any graphical desidn
+- absolutely no any graphical desidn. ho bootstrap. only HTML with a little CSS.
 - no images (sory, but just imagine those boxes ere pizzas fotos) i usually use "intervention/image" for image manipulation
-- no admin panel (in suh cases i usually use ready-to-use panels like nova etc.)
+- no admin panel (in suh cases i usually use ready-to-use panels like **nova** etc. but django is the best)
 - no emails when order created
 - password is always **qwerty**
 - "jeremykenedy/laravel-roles" was used to roles, but there is no admi panel, so no demo 

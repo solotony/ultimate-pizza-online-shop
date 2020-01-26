@@ -29,7 +29,7 @@
          <td><a href="{{route('home_order', $order->id)}}">{{$order->id}}</a></td>
          <td>{{$order->created_at->format('d.m h:i')}}</td>
          <td>{{$order->status_text()}}</td>
-         <td>{{ (new \Carbon\Carbon($order->delivery_time))->format('d.m h:i') }}</td>
+         <td>{{ (new \Carbon\Carbon($order->time_of_delivery))->format('d.m h:i') }}</td>
          <td>{{$order->method_text()}}</td>
          <td>{{$order->shop->name}}</td>
          <td>{{format_price($order->amount, $sel_currency)}}</td>
