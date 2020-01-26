@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="f078c5d9-1adf-409b-aa20-79ebd3805d49" name="solotony @ beget" url="http://assolo0k.beget.tech">
+        <fileTransfer host="assolo0k.beget.tech" port="21" rootFolder="/bnx">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
